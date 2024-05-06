@@ -26,6 +26,8 @@
         "windowsx.h": "c",
         "vulkan_platform.h": "c",
         "renderer_frontend.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "platform.h": "c",
+        "string.h": "c"
     }
 }

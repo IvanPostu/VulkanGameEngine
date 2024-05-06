@@ -1,7 +1,5 @@
 # Vulkan Game Engine
 
-Vulkan Game Engine Series Written in C (Kohi Game Engine) https://www.youtube.com/playlist?list=PLv8Ddw9K0JPg1BEO-RS-0MYs423cvLVtj
-
 ## Definitions
 
 - **Game engine** - is a software framework and suite of tools used to build and create video games
@@ -55,4 +53,5 @@ Vulkan Game Engine Series Written in C (Kohi Game Engine) https://www.youtube.co
     C:\VulkanSDK\1.3.280.0
     ```
 
-
+## Platform Layer
+![](./forReadme/PlatformLayer.png)
