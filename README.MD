@@ -1,10 +1,13 @@
-# Vulkan Game Engine Series Written in C (Kohi Game Engine)
+# Vulkan Game Engine
+
+Vulkan Game Engine Series Written in C (Kohi Game Engine) https://www.youtube.com/playlist?list=PLv8Ddw9K0JPg1BEO-RS-0MYs423cvLVtj
 
 ## Definitions
 
 - **Game engine** - is a software framework and suite of tools used to build and create video games
 - **Kohi** - Japanese pronunciation for "coffee" 
-- **CLang** - C language compiler which provides out-of-the box cross-platform compatibility.
+- **CLang** - C language compiler which provides out-of-the box cross-platform compatibility (https://llvm.org/builds/).
+- **Vulkan SDK** - is a set of tools and APIs to work with graphics (https://lunarg.com/vulkan-sdk/)
 
 ## Game Engine Structure
 ![](./forReadme/GEStructure.png)
@@ -25,3 +28,31 @@
 
 ## Engine Architecture
 ![](./forReadme/EngineArchitecture.png)
+
+## Setup (Windows)
+- Install: vscode
+    - C/C++ extension
+- Install: Visual Studio Community
+    - Workload: Desktop development with C++
+- (After VSCommunity) Install clang (https://llvm.org/builds/)
+    - Check:
+    ```
+    $ clang --version
+    clang version 12.0.0
+    Target: x86_64-pc-windows-msvc
+    Thread model: posix
+    InstalledDir: C:\Program Files\LLVM\bin
+    ```
+- Install Vulkan SDK (https://www.lunarg.com/vulkan-sdk/)
+    - Add `PATH` variable for all users
+    - Check:
+    ```
+    >echo %VULKAN_SDK%                                                                                       C:\VulkanSDK\1.3.280.0 
+
+    # or
+    
+    $ echo $VULKAN_SDK
+    C:\VulkanSDK\1.3.280.0
+    ```
+
+
