@@ -44,6 +44,4 @@ void log_output(log_level level, const char* message, ...) {
     } else {
         platform_console_write(out_message2, level);
     }
-
-    printf("%s", out_message2);
 }
