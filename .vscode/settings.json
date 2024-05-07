@@ -28,6 +28,7 @@
         "renderer_frontend.h": "c",
         "stdio.h": "c",
         "platform.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "defines.h": "c"
     }
 }
