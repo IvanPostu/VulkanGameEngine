@@ -29,6 +29,7 @@
         "stdio.h": "c",
         "platform.h": "c",
         "string.h": "c",
-        "defines.h": "c"
+        "defines.h": "c",
+        "logger.h": "c"
     }
 }

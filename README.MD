@@ -54,6 +54,9 @@
 - **Kohi** - Japanese pronunciation for "coffee" 
 - **CLang** - C language compiler which provides out-of-the box cross-platform compatibility (https://llvm.org/builds/).
 - **Vulkan SDK** - is a set of tools and APIs to work with graphics (https://lunarg.com/vulkan-sdk/)
+- **Stride** - size of an individual element inside dynamic array (in bytes)
+- **Capacity** - number of elements that can be held
+- **Length** - number of elements currently contained
 
 ## Game Engine Structure
 ![](./forReadme/GEStructure.png)
