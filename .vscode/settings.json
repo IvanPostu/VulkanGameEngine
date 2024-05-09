@@ -30,6 +30,7 @@
         "platform.h": "c",
         "string.h": "c",
         "defines.h": "c",
-        "logger.h": "c"
+        "logger.h": "c",
+        "event.h": "c"
     }
 }
