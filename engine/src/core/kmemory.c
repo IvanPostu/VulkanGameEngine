@@ -1,6 +1,7 @@
 #include "kmemory.h"
 
 #include "core/logger.h"
+#include "core/kstring.h"
 #include "platform/platform.h"
 
 // TODO: Custom string lib
@@ -83,10 +84,7 @@ char* get_memory_usage_str() {
     const u64 gib = 1024 * 1024 * 1024;
     const u64 mib = 1024 * 1024;
     const u64 kib = 1024;
-
-    const u16 buffer_size = 8000;
-    char* buffer = (char*) malloc(sizeof(char) * buffer_size);
-    strcpy(buffer, "System memory use (tagged):\n");
+    char buffer[8000] = "System memory use (tagged):\n";
     u64 offset = strlen(buffer);
     for (u32 i = 0; i < MEMORY_TAG_MAX_TAGS; ++i) {
         char unit[4] = "XiB";
@@ -105,9 +103,9 @@ char* get_memory_usage_str() {
             unit[1] = 0;
             amount = (float)stats.tagged_allocations[i];
         }
-
         i32 length = snprintf(buffer + offset, 8000, "  %s: %.2f%s\n", memory_tag_strings[i], amount, unit);
         offset += length;
     }
-    return buffer;
+    char* out_string = string_duplicate(buffer);
+    return out_string;
 }
