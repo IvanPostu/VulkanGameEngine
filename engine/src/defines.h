@@ -20,6 +20,10 @@ typedef double f64;
 typedef int b32;
 typedef char b8;
 
+// TODO: to move to math module
+#define MAX(a,b) ((a) > (b) ? (a) : (b))
+#define MIN(a,b) ((a) < (b) ? (a) : (b))
+
 // Properly define static assertions.
 #if defined(__clang__) || defined(__gcc__)
 #define STATIC_ASSERT _Static_assert

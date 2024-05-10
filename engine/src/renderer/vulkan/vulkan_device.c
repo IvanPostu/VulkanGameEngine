@@ -63,9 +63,10 @@ b8 vulkan_device_create(vulkan_context* context) {
         queue_create_infos[i].sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
         queue_create_infos[i].queueFamilyIndex = indices[i];
         queue_create_infos[i].queueCount = 1;
-        if (indices[i] == context->device.graphics_queue_index) {
-            queue_create_infos[i].queueCount = 2;
-        }
+        // TODO: Enable this for a future enhancement.
+        // if (indices[i] == context->device.graphics_queue_index) {
+        //     queue_create_infos[i].queueCount = 2;
+        // }
         queue_create_infos[i].flags = 0;
         queue_create_infos[i].pNext = 0;
         f32 queue_priority = 1.0f;
@@ -355,25 +356,25 @@ b8 physical_device_meets_requirements(
     KINFO("Graphics | Present | Compute | Transfer | Name");
     u8 min_transfer_score = 255;
     for (u32 i = 0; i < queue_family_count; ++i) {
-        u8 current_transfer_score = 0;
+        u8 current_transfer_score = 100 - MIN(queue_families[i].queueCount, 10) * 10;
 
         // Graphics queue?
         if (queue_families[i].queueFlags & VK_QUEUE_GRAPHICS_BIT) {
             out_queue_info->graphics_family_index = i;
-            ++current_transfer_score;
+            current_transfer_score += 5;
         }
 
         // Compute queue?
         if (queue_families[i].queueFlags & VK_QUEUE_COMPUTE_BIT) {
             out_queue_info->compute_family_index = i;
-            ++current_transfer_score;
+            current_transfer_score += 5;
         }
 
         // Transfer queue?
         if (queue_families[i].queueFlags & VK_QUEUE_TRANSFER_BIT) {
             // Take the index if it is the current lowest. This increases the
             // liklihood that it is a dedicated transfer queue.
-            if (current_transfer_score <= min_transfer_score) {
+            if (current_transfer_score <= min_transfer_score || queue_families[i].queueCount > 1) {
                 min_transfer_score = current_transfer_score;
                 out_queue_info->transfer_family_index = i;
             }

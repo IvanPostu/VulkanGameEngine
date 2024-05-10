@@ -31,6 +31,12 @@
         "string.h": "c",
         "defines.h": "c",
         "logger.h": "c",
-        "event.h": "c"
+        "event.h": "c",
+        "vulkan_device.h": "c",
+        "kstring.h": "c",
+        "darray.h": "c",
+        "kmemory.h": "c",
+        "vulkan_types.inl": "c",
+        "asserts.h": "c"
     }
 }
