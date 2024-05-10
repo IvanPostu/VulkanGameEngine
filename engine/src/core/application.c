@@ -166,6 +166,8 @@ b8 application_run() {
     event_shutdown();
     input_shutdown();
 
+    renderer_shutdown();
+
     platform_shutdown(&app_state.platform);
 
     return TRUE;
