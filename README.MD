@@ -57,6 +57,7 @@
 - **Stride** - size of an individual element inside dynamic array (in bytes)
 - **Capacity** - number of elements that can be held
 - **Length** - number of elements currently contained
+- **Renderer Subsystem** - a software or hardware process that generates a visual image from model
 
 ## Game Engine Structure
 ![](./forReadme/GEStructure.png)
@@ -80,3 +81,9 @@
 
 ## Platform Layer
 ![](./forReadme/PlatformLayer.png)
+
+## Renderer
+![](./forReadme/MultiphaseApproach.png)
+![](./forReadme/WhyVulkan.png)
+![](./forReadme/VulkanOverview.png)
+![](./forReadme/VulkanDrawbacks.png)
