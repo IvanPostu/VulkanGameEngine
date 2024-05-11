@@ -38,6 +38,9 @@
         "kmemory.h": "c",
         "vulkan_types.inl": "c",
         "asserts.h": "c",
-        "application.h": "c"
+        "application.h": "c",
+        "xlocale": "c",
+        "xstring": "c",
+        "array": "c"
     }
 }

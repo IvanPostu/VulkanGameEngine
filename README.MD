@@ -96,3 +96,7 @@
 
 ## Viewport projections
 ![](./forReadme/ViewProjections.PNG)
+
+## Git
+
+- `git merge <hash> --no-commit --no-ff --allow-unrelated-histories`
