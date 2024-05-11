@@ -37,6 +37,7 @@
         "darray.h": "c",
         "kmemory.h": "c",
         "vulkan_types.inl": "c",
-        "asserts.h": "c"
+        "asserts.h": "c",
+        "application.h": "c"
     }
 }
