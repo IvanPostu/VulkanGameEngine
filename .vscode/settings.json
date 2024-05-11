@@ -41,6 +41,7 @@
         "application.h": "c",
         "xlocale": "c",
         "xstring": "c",
-        "array": "c"
+        "array": "c",
+        "vulkan_object_shader.h": "c"
     }
 }
