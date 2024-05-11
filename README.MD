@@ -25,6 +25,8 @@
     $ echo $VULKAN_SDK
     C:\VulkanSDK\1.3.280.0
     ```
+- Install `make` for Windows (https://gnuwin32.sourceforge.net/packages/make.htm)
+  - Set `PATH` -> `C:\Program Files (x86)\GnuWin32\bin`
 
 ## Setup (Linux)
 - Install: vscode
