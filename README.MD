@@ -60,6 +60,7 @@
 - **Capacity** - number of elements that can be held
 - **Length** - number of elements currently contained
 - **Renderer Subsystem** - a software or hardware process that generates a visual image from model
+- **Vulkan Pipeline** - a sequence of operations that take vertex data (positions, textures, etc.) and eventually output them as pixels on the screen.
 
 ## Game Engine Structure
 ![](./forReadme/GEStructure.png)
@@ -83,6 +84,9 @@
 
 ## Platform Layer
 ![](./forReadme/PlatformLayer.png)
+
+## Vulkan Graphics Pipeline Stages
+![](./forReadme/VulkanGraphicsPipelineStages.png)
 
 ## Renderer
 ![](./forReadme/MultiphaseApproach.png)
