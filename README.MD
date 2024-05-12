@@ -61,6 +61,9 @@
 - **Length** - number of elements currently contained
 - **Renderer Subsystem** - a software or hardware process that generates a visual image from model
 - **Vulkan Pipeline** - a sequence of operations that take vertex data (positions, textures, etc.) and eventually output them as pixels on the screen.
+- **Image** - a set of pixels where each pixel represents a set of channels, for instance RGB, RGBA, BGRA or ARGB.
+- **Texture** - an image applied to the surface of geometry, also known as "texture maps".
+
 
 ## Game Engine Structure
 ![](./forReadme/GEStructure.png)
