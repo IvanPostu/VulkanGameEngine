@@ -37,6 +37,7 @@ typedef union vec3_u {
 } vec3;
 
 typedef union vec4_u {
+
     // An array of x, y, z, w
     f32 elements[4];
     union {
@@ -69,4 +70,5 @@ typedef union mat4_u {
 
 typedef struct vertex_3d {
     vec3 position;
+    vec2 texcoord;
 } vertex_3d;
