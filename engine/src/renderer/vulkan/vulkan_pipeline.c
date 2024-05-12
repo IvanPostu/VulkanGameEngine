@@ -9,6 +9,7 @@
 b8 vulkan_graphics_pipeline_create(
     vulkan_context* context,
     vulkan_renderpass* renderpass,
+    u32 stride,
     u32 attribute_count,
     VkVertexInputAttributeDescription* attributes,
     u32 descriptor_set_layout_count,
@@ -18,6 +19,9 @@ b8 vulkan_graphics_pipeline_create(
     VkViewport viewport,
     VkRect2D scissor,
     b8 is_wireframe,
+    b8 depth_test_enabled,
+    u32 push_constant_range_count,
+    range* push_constant_ranges,
     vulkan_pipeline* out_pipeline) {
     // Viewport state
     VkPipelineViewportStateCreateInfo viewport_state = {VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO};
@@ -50,11 +54,13 @@ b8 vulkan_graphics_pipeline_create(
 
     // Depth and stencil testing.
     VkPipelineDepthStencilStateCreateInfo depth_stencil = {VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO};
-    depth_stencil.depthTestEnable = VK_TRUE;
-    depth_stencil.depthWriteEnable = VK_TRUE;
-    depth_stencil.depthCompareOp = VK_COMPARE_OP_LESS;
-    depth_stencil.depthBoundsTestEnable = VK_FALSE;
-    depth_stencil.stencilTestEnable = VK_FALSE;
+    if (depth_test_enabled) {
+        depth_stencil.depthTestEnable = VK_TRUE;
+        depth_stencil.depthWriteEnable = VK_TRUE;
+        depth_stencil.depthCompareOp = VK_COMPARE_OP_LESS;
+        depth_stencil.depthBoundsTestEnable = VK_FALSE;
+        depth_stencil.stencilTestEnable = VK_FALSE;
+    }
 
     VkPipelineColorBlendAttachmentState color_blend_attachment_state;
     kzero_memory(&color_blend_attachment_state, sizeof(VkPipelineColorBlendAttachmentState));
@@ -77,7 +83,7 @@ b8 vulkan_graphics_pipeline_create(
 
     // Dynamic state
     const u32 dynamic_state_count = 3;
-    VkDynamicState dynamic_states[dynamic_state_count] = {
+    VkDynamicState dynamic_states[3] = {
         VK_DYNAMIC_STATE_VIEWPORT,
         VK_DYNAMIC_STATE_SCISSOR,
         VK_DYNAMIC_STATE_LINE_WIDTH};
@@ -89,7 +95,7 @@ b8 vulkan_graphics_pipeline_create(
     // Vertex input
     VkVertexInputBindingDescription binding_description;
     binding_description.binding = 0;  // Binding index
-    binding_description.stride = sizeof(vertex_3d);
+    binding_description.stride = stride;
     binding_description.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;  // Move to next data entry for each vertex.
 
     // Attributes
@@ -106,14 +112,28 @@ b8 vulkan_graphics_pipeline_create(
 
     // Pipeline layout
     VkPipelineLayoutCreateInfo pipeline_layout_create_info = {VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO};
-
+    
     // Push constants
-    VkPushConstantRange push_constant;
-    push_constant.stageFlags = VK_SHADER_STAGE_VERTEX_BIT;
-    push_constant.offset = sizeof(mat4) * 0;
-    push_constant.size = sizeof(mat4) * 2;
-    pipeline_layout_create_info.pushConstantRangeCount = 1;
-    pipeline_layout_create_info.pPushConstantRanges = &push_constant;
+    if (push_constant_range_count > 0) {
+        if (push_constant_range_count > 32) {
+            KERROR("vulkan_graphics_pipeline_create: cannot have more than 32 push constant ranges. Passed count: %i", push_constant_range_count);
+            return false;
+        }
+
+        // NOTE: 32 is the max number of ranges we can ever have, since spec only guarantees 128 bytes with 4-byte alignment.
+        VkPushConstantRange ranges[32];
+        kzero_memory(ranges, sizeof(VkPushConstantRange) * 32);
+        for (u32 i = 0; i < push_constant_range_count; ++i) {
+            ranges[i].stageFlags = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
+            ranges[i].offset = push_constant_ranges[i].offset;
+            ranges[i].size = push_constant_ranges[i].size;
+        }
+        pipeline_layout_create_info.pushConstantRangeCount = push_constant_range_count;
+        pipeline_layout_create_info.pPushConstantRanges = ranges;
+    } else {
+        pipeline_layout_create_info.pushConstantRangeCount = 0;
+        pipeline_layout_create_info.pPushConstantRanges = 0;
+    }
 
     // Descriptor set layouts
     pipeline_layout_create_info.setLayoutCount = descriptor_set_layout_count;
@@ -136,7 +156,7 @@ b8 vulkan_graphics_pipeline_create(
     pipeline_create_info.pViewportState = &viewport_state;
     pipeline_create_info.pRasterizationState = &rasterizer_create_info;
     pipeline_create_info.pMultisampleState = &multisampling_create_info;
-    pipeline_create_info.pDepthStencilState = &depth_stencil;
+    pipeline_create_info.pDepthStencilState = depth_test_enabled ? &depth_stencil : 0;
     pipeline_create_info.pColorBlendState = &color_blend_state_create_info;
     pipeline_create_info.pDynamicState = &dynamic_state_create_info;
     pipeline_create_info.pTessellationState = 0;
